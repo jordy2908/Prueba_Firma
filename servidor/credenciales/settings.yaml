@@ -1,7 +1,7 @@
 client_config_backend: settings
 client_config:
   client_id: #Client_id / credentials_module.json
-  client_secret: #Client_secret / credentials_module.json.
+  client_secret: #Client_secret / credentials_module.json
 
 save_credentials : True
 save_credentials_backend: file
