@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="{{ url_for('static', path='/css/home.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/emer.css') }}" rel="stylesheet">
+
+
+</head>
+<body>
+    <div class="body"></div>
+        <div class="grad"></div>
+        <div class="header">
+            <div> I <span> T S G G </span></div>
+        </div>
+        <br>
+
+        <div class="login">
+<!--            <form action=""  id = 'formulario'>-->
+                <div id="formulario">
+                    <input type="password" placeholder="password" id="password" name="contra" onkeyup="habilitar()">
+                    <input type="button" value="Login" id="open">
+                </div>
+<!--            </form>-->
+            <div id="error"></div>
+        </div>
+        <div class="body" id="bodi"></div>
+            <div class="modal-container" id="modal_container" >
+                <div class="modal">
+                    <h1> Se procedera a enviar un codigo de validacion </h1>
+                    <br>
+                    <h2> ¿Por que medio te gustaria recibirlo? </h2>
+                    <form action="/send_code" method="post">
+                        <input type="submit" value="Correo" id="close">
+                    </form>
+                    <form action="" > <!-- ACTUALMENTE NO TIENE FUNCION, MENSAJE DE ERROR PROXIMO A AGREGAR-->
+                        <input type="submit" value="SMS" name="close" class="csm">
+                    </form>
+                </div>
+            </div>
+        <div class="bod" id = "bdi"></div>
+            <div class="modal-container2" id="modal_container2">
+                <div class="modal2">
+                    <h1> Usuario no valido </h1>
+                </div>
+            </div>
+
+
+
+<!--<script src='../js/validacion.js'></script>-->
+<!--<script src="../js/emerg.js"></script>-->
+    <script src="{{ url_for('static', path='/js/validacion.js') }}" ></script>
+<!--    <script src="{{ url_for('static', path='/js/emerg.js') }}" ></script>-->
+
+
+</body>
+</html>
