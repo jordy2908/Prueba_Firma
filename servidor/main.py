@@ -19,15 +19,8 @@ from doc import genDocument, genDoc
 import os
 
 
-link = 'http://75.119.155.19:22500/usuarios_ceduda/?cedula=0957546047'  # URL PARA OBTENCIO LA INFORMACION PERSONAL
+link = ' '  # URL PARA OBTENCIO LA INFORMACION PERSONAL
 response = requests.get(link).json()  # CONVERCION DE LA INFORMACION A FORMATO JSON
-
-link1 = 'http://75.119.155.19:22500/notas_r/?cedula=0957546047'  # OBTENCION DE LAS NOTAS DEL SEMESTRE
-response1 = requests.get(link1).json()  # CONVERCION DE LA INFORMACION A FORMATO JSON
-
-link2 = 'http://75.119.155.19:22500/notas/?cedula=0957546047'  # OBTENCION DE LAS NOTAS DEL PRIMER Y SEGUNDO PARCIAL
-response2 = requests.get(link2).json()  # CONVERCION DE LA INFORMACION A FORMATO JSON
-# print(response2[0]["v_jornada"])
 
 # print(response[0]["v_cedula"])
 
@@ -46,9 +39,9 @@ app.mount(
 template = Jinja2Templates(directory="templates")  # DIRECTORIO DE LOS TEMPLATES
 
 conf = ConnectionConfig(  # CONFIGURACION SEL SERVIDOR SMTP PARA EL ENVÍO DEL CODIGO Y ARCHIVO POR EMAIL
-    MAIL_USERNAME='cjbuestan@est.itsgg.edu.ec',
-    MAIL_PASSWORD="25062018",
-    MAIL_FROM='cjbuestan@est.itsgg.edu.ec',
+    MAIL_USERNAME='email',
+    MAIL_PASSWORD="contraseña",
+    MAIL_FROM='email',
     MAIL_PORT=587,
     MAIL_SERVER="smtp.gmail.com",
     MAIL_TLS=True,
@@ -110,7 +103,7 @@ async def valid_code(request: Request):
 def generate_document(request: Request, background_tasks: BackgroundTasks):
     descarga()
     url = f'{HOST_NAME}/static/generate_{response[0]["v_apellidos"]}_document2.docx'
-    rs = genDocument(response[0]["v_nombres"],
+    rs = genDocument(response[0]["v_nombres"], # Obtencion de datos de la URL para introducirlos en el doc template
                      response[0]["v_apellidos"],
                      response[0]["v_cedula"],
                      response[0]["v_carrera"],
@@ -138,7 +131,7 @@ def generate_document(request: Request, background_tasks: BackgroundTasks):
 
     background_tasks.add_task(fm.send_message, message)
 
-    os.startfile(f'C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/document/{file_name}', "print")
+    os.startfile(f'C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/document/{file_name}', "print") # Impresion del doc -- copiar directorio completo donde se descarga el archivo, excepto el nombre
 
     # os.remove(f'{file_path}generate_{response[0]["v_apellidos"]}_document.docx')
     return template.TemplateResponse('/html/docs.html', {'request': request})
@@ -166,7 +159,7 @@ def generate_document(request: Request, background_tasks: BackgroundTasks):
     doc2()
     url = f'{HOST_NAME}/static/inicio-fin{response[0]["v_apellidos"]}.docx'
 
-    rs = genDoc(response[0]["v_apellidos"],
+    rs = genDoc(response[0]["v_apellidos"], # Obtencion de datos de la URL para introducirlos en el doc template
                 response[0]["v_nombres"],
                 response2[0]["v_jornada"],
                 response[0]["v_cedula"],
@@ -195,7 +188,7 @@ def generate_document(request: Request, background_tasks: BackgroundTasks):
 
     background_tasks.add_task(fm.send_message, message)
 
-    os.startfile(f'C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/document/{file_name}', "print")
+    os.startfile(f'C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/document/{file_name}', "print") # Impresion del doc -- copiar directorio completo donde se descarga el archivo, excepto el nombre
 
     # os.remove(f'{file_path}generate_{response[0]["v_apellidos"]}_document.docx')
     return template.TemplateResponse('/html/docs.html', {'request': request})
@@ -216,15 +209,7 @@ def delete_file(request: Request):
         os.remove('./document' + '/' + file_name1)
         os.remove('C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/image.png')
         os.remove('C:/Users/bcarl/Downloads/solicitud.docx')
-        os.remove('C:/Users/bcarl/Downloads/inicio-fin.docx')
-    #     return JSONResponse(content={
-    #         "eliminado": True
-    #     }, status_code=200)
-    # except FileNotFoundError:
-    #     return JSONResponse(content={
-    #         "eliminado": False,
-    #         "error_message": "Archivo no encontrado"
-    #     }, status_code=404)
+        os.remove('C:/Users/bcarl/Downloads/inicio-fin.docx') # Eliminacion de los documentos
     except:
         pass
     return template.TemplateResponse('/html/login.html', {'request': request})
@@ -238,7 +223,7 @@ def delete_file(request: Request):
 @app.post("/send_code")  # ENVIO DEL CODIGO POR EMAIL
 async def code(request: Request, background_tasks: BackgroundTasks):
     msg = f'<h1> {codig} </h1>'
-    email = response[0]["v_correo_personal"]
+    email = response[0]["v_correo_personal"] # Obtencion del Email mediante JSON de la URL
     message = MessageSchema(
         subject="Fastapi mail module",
         recipients=[email],

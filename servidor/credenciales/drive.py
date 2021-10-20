@@ -1,7 +1,7 @@
 from pydrive2.auth import GoogleAuth
 from pydrive2.drive import GoogleDrive
 
-directorio_credentials = 'C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/servidor/credenciales/credentials_module.json'
+directorio_credentials = 'directorio donde se ubica credentials_module.json'
 
 # inicia sesion
 
@@ -20,12 +20,12 @@ def login():
 
 def descarga():
     credenciales = login()
-    archivo = credenciales.CreateFile({'id' : '1QbAsLMFEm0J-M_SkhGWFeQ_aAVAIeEnv'})
+    archivo = credenciales.CreateFile({'id' : 'id del archivo'})
     nombre = archivo['title']
-    archivo.GetContentFile('C:/Users/bcarl/Downloads/' + nombre)
+    archivo.GetContentFile('C:/Users/bcarl/Downloads/' + nombre) # Ubicacion de descarga
 
 def doc2():
     credenciales = login()
-    archivo = credenciales.CreateFile({'id' : '1IIfhIPvY0tlzy2jt1TR83PNnYyb5rePY'})
+    archivo = credenciales.CreateFile({'id' : 'id del archivo'})
     nombre = archivo['title']
-    archivo.GetContentFile('C:/Users/bcarl/Downloads/' + nombre)
+    archivo.GetContentFile('C:/Users/bcarl/Downloads/' + nombre) # Ubicacion de descarga

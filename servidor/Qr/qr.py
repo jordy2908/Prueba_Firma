@@ -6,4 +6,4 @@ def qr():
     # Generate QR code
     qr_code = pyqrcode.create(url) # GENERACION DE QR
 
-    qr_code.png("image.png", scale=1)
+    qr_code.png("image.png", scale=1) # QR para insercion de firma ejemplo

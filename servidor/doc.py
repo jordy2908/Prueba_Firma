@@ -4,7 +4,7 @@ from Qr import qr
 from docx.shared import Mm
 from docxtpl import DocxTemplate, InlineImage
 
-link = 'http://75.119.155.19:22500/usuarios_ceduda/?cedula=0957546047'
+link = 'URL de obtencion de datos a obtener'
 response = requests.get(link).json()
 
 
@@ -39,11 +39,6 @@ def genDoc(nombre, apellido, jornada, cedula, carrera):
         "cedula" : cedula,
         "carrera" : carrera,
         "jornada" : jornada
-        # "firma": InlineImage(tpl,
-        #                      image_descriptor="C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/Qr/image.png"),
-        # "firmaa": InlineImage(tpl,
-        #                       image_descriptor="C:/Users/bcarl/PycharmProjects/pythonProject/Prueba_Firma/Qr/img_firma-3-300x196.jpg",
-        #                       width=Mm(26), height=Mm(17))
     }
     tpl.render(context)
     file_path = './document/'
