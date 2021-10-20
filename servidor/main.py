@@ -18,29 +18,6 @@ from starlette.templating import Jinja2Templates
 from doc import genDocument, genDoc
 import os
 
-from fastapi.middleware.cors import CORSMiddleware
-from PyInstaller.utils.hooks import collect_submodules
-
-hiddenimports = ['uvicorn.lifepan.off',
-                                   'uvicorn.lifepan.on',
-                                   'uvicorn.lifepan',
-                                   'uvicorn.protocols.websockets.auto',
-                                   'uvicorn.protocols.websockets.wsproto_impl',
-                                   'uvicorn.protocols.websockets_impl',
-                                   'uvicorn.protocols.http.auto',
-                                   'uvicorn.protocols.http.hll_impl',
-                                   'uvicorn.protocols.http.httptools_impl',
-                                   'uvicorn.protocols.websockets',
-                                   'uvicorn.protocols.http',
-                                   'uvicorn.protocols',
-                                   'uvicorn.loops.auto',
-                                   'uvicorn.loops.asyncio',
-                                   'uvicorn.loops.uvloop',
-                                   'uvicorn.loops',
-                                   'uvicorn.logging']
-origins = [
-    'http://localhost:8080',
-]
 
 link = 'http://75.119.155.19:22500/usuarios_ceduda/?cedula=0957546047'  # URL PARA OBTENCIO LA INFORMACION PERSONAL
 response = requests.get(link).json()  # CONVERCION DE LA INFORMACION A FORMATO JSON
@@ -59,14 +36,6 @@ codig = codigo()  # GENERACION DE CODIGO VALIDADOR
 HOST_NAME = os.getenv("HOST_NAME")
 
 app = FastAPI()
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=['*'],
-    allow_headers=['*'],
-)
 
 app.mount(
     "/static",
@@ -311,14 +280,3 @@ async def code(request: Request, background_tasks: BackgroundTasks):
 #
 #     # return JSONResponse(status_code=200, content={"message": "email has been sent"})
 # ================================================================================
-
-# if __name__ == "__main__":
-# FlaskUI(app, start_server='fastapi', width=600, height=500).run()  # feed app and parameters
-
-def serve():
-    """Serve the web application."""
-    uvicorn.run('main:app', reload=True, workers=1)
-
-
-if __name__ == "__main__":
-    serve()
